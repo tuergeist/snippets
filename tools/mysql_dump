@@ -1,0 +1,25 @@
+#!/bin/bash
+# Benutzername und Passwort für DB-root
+MYSQL="-uroot -prootbeer"
+# Wohin sollen die ganzen Backups geschrieben werden?
+ZIEL="/media/backupdisk/MySQL"
+
+#### #### ####
+echo "Alle MySQL-Datenbanken sichern:"
+# Bereinigte Liste der Datenbanken erzeugen
+mysqlshow ${MYSQL} | awk '{print $2}' | grep -v Databases | sort >/tmp/dbaselist.txt
+cd ${ZIEL}
+SUBDIR="`date +%Y-%m-%d-%H-%M`"
+
+mkdir -p $SUBDIR
+cd $SUBDIR
+for x in `cat /tmp/dbaselist.txt`; do 
+    echo "Datenbank: $x sichern"; 
+    # Hier stand noch was mit --opt
+    mysqldump --skip-lock-tables ${MYSQL} $x >$x.sql;
+done;
+
+echo -n "Einpacken ($SUBDIR) ... "
+cd ..
+( tar czf $SUBDIR.tgz $SUBDIR && rm -rf $SUBDIR ) && echo "ok" || echo "FEHLER"
+

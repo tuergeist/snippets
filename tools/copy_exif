@@ -1,0 +1,29 @@
+#!/bin/bash
+# copy exif date from file 1 to file 2
+
+function usage()
+{
+	echo "Usage: $0 <fromFile> <toFile>  to copy exif data" >&2
+	echo $@ >&2
+	exit 1
+}
+
+if [ $# -eq 1  -a  "$1" != "--help" ] ; then
+	DST=null 	
+	f=$(filename $1)
+	[ -f $fc.jpg ] &&  DST=$fc.jpg && echo "Found $DST" 
+	[ -f $f.jpg ]  &&  DST=$f.jpg  && echo "Found $DST" 
+	[ $DST = "null" ] && usage "Could not find $f.jpg nor $fc.jpg"
+	CMD="exiftool  -overwrite_original -TagsFromFile $f.DNG  -x Orientation $DST"
+	echo $CMD
+	$CMD
+else
+	if [ $# -eq 2 ] ; then 
+		CMD="exiftool  -overwrite_original -TagsFromFile $1 -x Orientation $2"
+		echo $CMD
+		$CMD
+	else
+		usage
+	fi
+fi
+

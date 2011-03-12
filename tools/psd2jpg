@@ -1,0 +1,1 @@
+for i in *.psd ; do echo $(filename $i) ; convert -quality 99 "$i"[0] "$(filename $i)".jpg ; done

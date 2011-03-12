@@ -1,0 +1,23 @@
+#!/usr/bin/python
+#
+# strip extension from filename
+#
+import sys
+# argument exists
+if len(sys.argv) == 1:
+    print("Usage: %s <filename.ext>  -  reuturns <filename> (without extension)")
+    sys.exit(1)
+
+f = sys.argv[1]
+last = f
+
+# find last dot
+l = len(f) - 1
+r = range(l)
+r.reverse()
+for i in r:
+    if f[i] == '.':
+        print(f[0:i])
+        sys.exit(0)
+print(f)
+sys.exit(0)

@@ -1,0 +1,15 @@
+#!/bin/bash
+suffix=reduced
+
+if [ $# -eq 0 ] ; then
+	echo "Usage: $0 <percent>"
+	echo "Resamples all pictures in $CWD to <percent of size>"
+	echo "New files will be created with $suffix"
+	exit 1
+fi
+
+for i in * ; do 
+	echo -n "$i"
+	convert -resample $1% $i $(filename $i)_$suffix.jpg
+	echo " done"
+done
