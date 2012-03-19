@@ -2,6 +2,12 @@
 #
 # strip extension from filename
 #
+# in bash, do:
+# filename=$(basename $fullfile)
+# extension=${filename##*.}
+# filename=${filename%.*}
+#
+
 import sys
 # argument exists
 if len(sys.argv) == 1:
