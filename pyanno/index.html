@@ -1,0 +1,921 @@
+
+<html><head>
+
+
+<style type="text/css">
+<!--
+
+	body	{	color: #000; background-color: #FFFFFF; text-align: left; 
+		margin: 5px; }
+	table { background-color: #FFFFFF; border: none; }
+	/*
+	a, blockquote, body, div, html, input, li, p, pre, span, table, td, textarea, th, tr, h1, h2, h3, img 
+	*/
+	* { 
+		font-size: 10pt; 
+		font-family: 'Lucida Sans Unicode', 'Lucida Grande', Arial, Helvetica, sans-serif;
+		 } 
+	pre {
+		font-size: 10pt; 
+		font-family: 'Lucida Console', Monaco, monospace;
+		padding-bottom: 10pt; 
+		 } 
+	
+
+	form { display: inline; }
+	
+	.done { text-decoration: line-through;}
+	
+
+/*
+body { padding-bottom: 50px;  }
+*/ 
+body { padding-left: 25px; padding-right: 25px; padding-bottom: 50px; padding-top: 50px; }
+
+
+
+	.item_comment { padding-left: 25px; color: #333; }
+	.page_title { font-size: 1.3em; padding-bottom: 20px; }
+	.section div { padding-left: 25px; text-indent: -25px; padding-top: 3px; }
+	.section { padding-bottom: 20px; }
+	.section_label { font-weight: bold; padding: 5px 0px 10px 0px; }
+/*
+	ul { list-style: none; }
+*/
+	ul li { text-indent: 0px; }
+	.argument_d { font-style: italic; }
+
+	.code { 
+/*
+			background: #e7e7e7; 
+*/
+			font-family: 'MS Sans Serif', Geneva, sans-serif;
+			margin: 5px; white-space: pre; border-left: 1px solid #888; padding-left: 10px; }
+			
+	table { /*
+			border: 1px solid black; 
+			*/
+			padding: 0px;
+			}
+	td { 
+		/*
+		border: 1px solid red; 
+		*/
+		margin: 0px; padding: 0px; 
+		padding-right: 10px; }
+	
+-->
+</style><title>Pyanno: Python Annotations</title></head><body>
+
+
+<div>
+<img style="border: 1px solid rgb(204, 204, 204); padding: 0px; margin-bottom: 25px;" src="2007.05.30.c.DSC_2447.1a.jpg">
+</div>
+<!--
+-->
+
+<div class="doc_title" style="margin-bottom: 8px;">
+</div>
+<div class="body">
+	<div class="page_title">
+Pyanno: Python Annotations
+	</div>
+	<div class="section">
+		By Charles M. Chen, <a href="mailto:charlesmchen@gmail.com">charlesmchen@gmail.com</a>.
+	</div>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+	<tr>
+	<td>
+	<img src="temboo_logo.64x64.png" />
+	</td>
+	<td>
+	This project came out of my work at <a target="_blank" href="http://www.temboo.com/">Temboo</a>,
+		a startup in the Tribeca neighborhood of New York City.
+		<br/>
+	They're hiring software engineers who want to work in Python, Qt, Java.
+		<br/>
+	<a href="mailto:info@temboo.com">Contact</a> us for details.
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	<br/>
+	<div class="section_label">
+		<a name="simpleExamples">Simple Examples</a>
+	</div>
+	<div class="section">
+
+		<div class="code">
+from pyanno import raises, abstractMethod, returnType, parameterTypes, deprecatedMethod, \
+                privateMethod, protectedMethod, selfType, ignoreType
+
+@abstractMethod
+def func2():
+	pass
+
+@returnType(int, int)
+@parameterTypes(int, int)
+def divisionAndModulus(numerator, denominator):
+	# return quotient and remainder of numerator and denominator
+	quotient, remainder = divmod(numerator, denominator)
+	return quotient, remainder
+
+@raises(IOError, ValueError)
+def func1(f, s):
+	f.write( int(s) )
+	
+@deprecatedMethod	
+def func2():
+	...
+	
+@privateMethod	
+def func3():
+	...
+	
+@protectedMethod	
+def func4():
+	...
+		</div>
+	</div>
+
+
+
+
+	<div class="section_label">
+		Contents
+	</div>
+	<div class="section">
+		<ul>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#simpleExamples">Simple Examples</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#downloads">Downloads</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#introduction">Introduction</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#sample_usage">Sample Usage</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#theAnnotations">The Annotations</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#details">Details</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#specialTypes">Special Types</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#parameterizedCollections">Parameterized Collections</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#stringEscapingTypes">String-Escaping Types</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#circularReferences">Circular References</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#optionalAnnotationArguments">Optional Annotation Arguments</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#issues">Issues</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#otherPossibleAnnotations">Other Possible Annotations</a>
+			</li>
+		
+
+
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#justification">Justification</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#faq">FAQ</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#project_status">Project Status</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#license">License</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#requirements">Requirements</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#references">References</a>
+			</li>
+			<li>
+				<a href="http://www.fightingquaker.com/pyanno/index.html#keywords">Keywords and Keyphrases</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="section_label">
+		<a name="downloads">Downloads</a>
+	</div>
+	<div class="section">
+		<div>
+			Version 0.77 (August 28th, 2007)
+		</div>
+		<div>
+			Source: <a href="http://www.fightingquaker.com/pyanno/pyanno.zip">pyanno.zip</a>
+		</div>
+		<div>
+			Source distribution includes python source, license, and this document.
+		</div>
+	</div>
+
+
+
+
+
+	<div class="section_label">
+		<a name="introduction">Introduction</a>
+	</div>
+	<div class="section">
+		<div>
+	Pyanno is a Python module that provides annotations for <a href="http://www.python.org/">Python</a> code.  
+		</div>
+		<div>
+The Pyanno annotations have two functions: 
+		</div>
+<ul>
+	<li>
+Provide a structured way to document Python code 
+	</li>
+	<li>
+Perform limited run-time checking
+	</li>
+</ul>
+		<div class="code">
+		<b>Conventional text comments</b>
+		
+		def getDistance(p1, p2):
+			"""
+			getDistance() expects to be given two Points; 
+			it returns a floating point value representing the distance between those two points.
+			"""
+			...
+
+		<b>Pyanno annotations</b>
+
+		from geometry import Point
+
+		@returnType(float)
+		@parameterTypes(Point, Point)
+		def getDistance(p1, p2):
+			"""
+			getDistance() calculates the distance between two points.
+			"""
+			...
+		</div>
+
+<ul>
+
+	<li>
+<b>Type Checking</b>
+Python is a dynamically-typed language; it doesn't use explicit datatype declarations.
+The @returnType and @parameterTypes annotations raise an Exception if a function or method is passed or returns 
+	an invalid value.
+You specify the types expected and returned by a function, using actual Python types.
+	</li>
+	<li>
+<b>Abstract Methods</b>
+Methods with the @abstractMethod annotations raise an Exception if called, with a meaningful message.
+	</li>
+	<li>
+<b>Deprecated Methods</b>
+Methods with the @deprecatedMethod annotations print a warning message if called.
+	</li>
+	<li>
+<b>Comparison With Text Comments</b>
+<ul>
+<li>
+Pyanno annotations are able to perform limited run-time checking (though no compile-time checking).  
+</li>
+<li>
+Comments can be wrong.  
+They may have typos, or reflect a misunderstanding.
+A function and its documentation easily fall out of sync as they are revised.  
+The annotations, by enforcing the documented behavior help catch programmer error and catch mistakes soon after they are made.
+Also, some mistakes (such as typos) are caught at compile-time, since the annotations are code.
+</li>
+</ul>
+	</li>
+</ul>
+
+
+	</div>
+
+
+	
+	<div class="section_label">
+		<a name="sample_usage">Sample Usage</a>
+	</div>
+	<div class="section">
+		<div class="code">
+The following examples are all valid.  
+For brevity, I've skipped the actual function definition and show only the annotations.
+
+from pyanno import raises, abstractMethod, returnType, parameterTypes, deprecatedMethod, \
+                privateMethod, protectedMethod, selfType, ignoreType, callableType
+
+    @returnType # returns nothing
+    @returnType ( ) # returns nothing
+    @returnType ( ' ' ) # returns nothing
+    @returnType ( str ) # returns a string (or None)
+    @returnType ( ' str ' ) # returns a string (example of string-escaping, equivalent to previous example)
+    @returnType ( str, int )
+    @returnType ( 'str', int )  
+    @returnType ( ' str, int ' ) # string-escape multiple types in single string, equivalent to two previous examples
+    @returnType ( tuple ) # returns a tuple
+    @returnType ( () ) # equivalent to previous example
+    @returnType ( dict ) # returns a dict
+    @returnType ( {} ) # equivalent to previous example
+    @returnType ( list ) # returns a list
+    @returnType ( [] ) # equivalent to previous example
+    @returnType ( [int] ) # returns a list containing only ints 
+    @returnType ( (int, ) ) # a tuple containing only ints (Note trailing comma)
+    @returnType ( {int:str} ) # a map with int keys and string values
+    @returnType ( {int: [ str ] } ) # a map with int keys and string-list values
+    @returnType ( QObject ) # class
+    @returnType ( 'QObject' ) # string-escaped, equivalent to previous example
+    @returnType ( ClassName('QObject') ) # class, reference valid even if QObject has not been imported.  
+    @returnType ( ignoreType ) # One argument is required, but no type checking is done.
+    @returnType ( classType ) 
+    @returnType ( instanceType ) 
+    @returnType ( callableType ) # accepts any method, function, closure, lambda, class or callable instance.
+    
+    @parameterTypes( selfType ) 
+    @parameterTypes( int ) # accepts an int argument
+    @parameterTypes( int, [str] ) # accepts an int and a list of strings
+		</div>
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="theAnnotations">The Annotations</a>
+	</div>
+	<div class="section">
+<ul>
+<li>
+	<b>@abstractMethod</b> raises an exception (AbstractMethodError) if the function is called.  
+	Has no arguments.
+</li>
+<li>
+	<b>@deprecatedMethod</b> prints a warning if the function is called.  
+	Has no arguments.
+</li>
+<li>
+	<b>@privateMethod</b> raises an exception (PrivateMethodError) if the function is called by another module.  
+	Has no arguments.
+</li>
+<li>
+	<b>@protectedMethod</b> raises an exception (PrivateMethodError) if the function is called by a module in a different package.  
+	Has no arguments.
+</li>
+<li>
+	<b>@raises</b> does no run-time checking; purely for documenting the exceptions that may be raised by this function.
+	Arguments: a list of Exceptions (each argument must be a subclass of BaseException).
+	Arguments to @raises may not be string-escaped or include ClassName.
+</li>
+<li>
+	<b>@parameterTypes</b> performs run-time checking on the arguments passed to the function.
+	Arguments: a list of types.  
+</li>
+<li>
+	<b>@returnType</b> performs run-time checking on the arguments returned by the function.
+	Arguments: a list of types.  
+</li>
+</ul>
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="details">Details</a>
+	</div>
+	<div class="section">
+
+<ul>
+<li>
+	@parameterTypes, @returnType and @raises take a list of types.  These are standard python types (ie. int, str, list, dict, etc.  see the 'types' standard module) or classes  (ie. QObject).
+</li>
+<li>
+You can only refer to defined types and classes.  
+See below (<a href="http://www.fightingquaker.com/pyanno/index.html#stringEscapingTypes">String Escaping Types</a> and <a href="http://www.fightingquaker.com/pyanno/index.html#circularReferences">Circular References</a>) for workarounds.
+</li>
+<li>
+Order of operations matters with python decorators.  Python function decorators are applied in reverse order.  
+Pyanno annotations should be applied FIRST (before builtin annotations like @staticmethod), so they should appear LAST in the code.  
+For example,
+<div class="code">
+	@staticmethod 
+	@returnType(bool)
+	def myMethod ():
+		return False
+</div></li>
+<li>
+Runtime type checking is controlled by <tt>pyanno.DO_RUNTIME_VALIDATION</tt>.  
+Ultimately, this could be set by an environment variable.
+</li>
+<li>
+Runtime type checking raise <tt>AbstractMethodError</tt>, <tt>ReturnTypeError</tt>, <tt>ParamTypeError</tt>, etc., all defined in 
+<tt>pyanno.py</tt>.
+</li>
+<li>
+At this point, none of the annotations provide compile-time checking.
+</li>
+<li>
+You can annotate constructors like any other method.
+</li>
+<li>
+Python uses implicit tuples when returning multiple values.  For example, 'return 1,2' is equivalent to 'return (1,2)'.  
+This doesn't effect our annotations.
+</li>
+<li>
+Do <span class="underline">not</span> apply the same annotation more than once to the same function.  The results are undefined.
+</li>
+<li>
+None values are considered valid for all types.  
+</li>
+<li>
+Pyanno handles <a href="http://www.riverbankcomputing.co.uk/sip/">sip</a> 
+	(and hence <a href="http://www.riverbankcomputing.co.uk/pyqt/">pyqt</a>) wrapper types seamlessly, though they aren't classes.
+</li>
+<li>
+When annotating a method or function with keynamed/optional parameters, annotate all parameters as usual.  
+<div class="code">
+	@parameterTypes( list, dict, str, int )
+	def function1( requiredParameter1, requiredParameter2, optionalParameter1='third', optionalParameter2=4 )
+	   ...
+</div>
+</li>
+
+
+</ul>
+
+
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="specialTypes">Special Types</a>
+	</div>
+	<div class="section">
+		
+		
+<ul><li>Classes cannot refer to their own type within the class definition.  'self' references (and other references to the class being defined) should use string-escaped types or selfType.  No type checking is done on selfType.
+<div class="code">
+class A:
+   @parameterTypes( A ) # wrong.  Definition of A cannot refer to A.
+   def method1(self):
+      ...
+
+   @parameterTypes( selfType ) # valid.  No type checking is done on selfType keyword.
+   def method2(self):
+      ...
+
+   @parameterTypes( 'A' ) # valid.  String-escaped type will be valid due to lazy evaluation.  
+   def method3(self):
+      ...
+</div>
+</li>
+<li>class references should use classType.  
+</li>
+<li>
+   callableType accepts any callable (ie. a method, function, closure, lambda, class or instance with a __call__() method).
+</li>
+
+<li>If you don't want to type check an argument, use ignoreType.  
+<div class="code">
+@parameterTypes( int, ignoreType, str ) # no type-checking performed on second argument.
+def function1( arg1, arg2, arg3 ):
+   ...
+</div></li>
+<li>If you don't want to check the class of an argument, use <tt>types.InstanceType</tt>.  
+</li></ul>
+
+
+
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="parameterizedCollections">Parameterized Collections and Nesting of Types</a>
+	</div>
+	<div class="section">
+	
+	
+You can check the types of tuple and list values, and dict key and value types.
+
+<div class="code">
+	@returnType ( (int, ) ) # a tuple containing only ints (Note trailing comma)
+	@returnType ( [int] ) # a list containing only ints
+	@returnType ( {int:str} ) # a map with int keys and string values
+	@returnType ( [QObject] ) # a list of QObjects.  
+	
+	# Collections can be arbitrarily nested:
+	
+	@returnType ( {str:[{str:int}]} ) # a map whose keys are string and whose values are
+									  # lists of dicts mapping strings to ints.
+	@returnType ( [ [int] ] ) # a list of lists which contain only ints
+</div>
+<div>
+[int] means 'a list of ints', not 'a list containing one int.'  
+</div>
+<div>
+You cannot specify multiple valid types for collection contents, ie. '[int, str]' is not valid.
+</div>
+<div>
+<span class="underline">Warning:</span> Make sure to use a trailing comma when parameterizing tuples with a single element.  
+(x,) is a tuple with a single element, (x) is just an element wrapped in parenthesis.
+</div>
+<div class="code">    
+	@returnType ( (int ) ) # wrong, missing trailing comma (means an int, not a tuple containing ints).
+	@returnType ( (int, ) ) # correct.
+</div>
+
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="stringEscapingTypes">String-Escaping Types</a>
+	</div>
+	<div class="section">
+
+<div>
+There are a number of situations where you cannot pass ordinary python types to annotations.  
+</div>
+<div>
+For example:
+</div>
+
+<div class="code">
+Class A:
+	@parameterTypes( selfType, A )
+		def compare(self, other):
+		return self.id == other.id
+</div>
+<div>
+This is an ordinary comparison method.  
+Unfortunately, this annotation refers to class A within the definition of class A.  
+As such, it is undefined.  
+</div>
+<div class="code">   
+	@parameterTypes( selfType, 'A' )
+</div>
+
+<div>
+The solution is to quote the class in a string.  
+The annotations use lazy evaluation of their arguments.
+</div>
+<div>
+You can string-escape multiple types in a single string.  The following are equivalent:
+</div>
+
+<div class="code">    
+	@returnType ( str, int )
+	@returnType ( 'str', int )
+	@returnType ( ' str, int ' )
+</div>
+<div>
+String-escaped and raw types can be mixed and matched arbitrarily:
+</div>
+
+<div class="code">    
+	@returnType ( 'str, Class1', str, 'int', str, 'Class2, Class1')
+</div>
+
+
+
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="circularReferences">Circular References &amp; ClassName</a>
+	</div>
+	<div class="section">
+	
+<div>
+Python does not permit circular imports.  
+ie. if module A imports module B, B cannot also import A.  
+</div>
+<div>
+A class cannot be referenced in an annotation if it is not imported - even if string-escaped.
+</div>
+<div>
+A solution is to use <span class="underline">ClassName</span>.
+</div>
+
+<div class="code">    
+	@parameterTypes( selfType, ClassName('TestClass1' ) )
+	def doSomething(self, other):
+		pass
+</div>
+<ul><li><span class="underline">ClassName</span> compares the designated class name (ie. '<tt>TestClass1</tt>') with the name of the arguments class and superclasses.  
+</li>
+<li><span class="underline">ClassName</span> ignores module path (ie. 'utils.tests.Something.<tt>TestClass1</tt>').  
+</li>
+<li><span class="underline">ClassName</span> will not distinguish between classes with identical names.
+</li>
+<li><span class="underline">ClassName</span> itself can be string-escaped (see above).
+
+</li>
+<li>Generally speaking, "String-Escaping" types is more convenient and concise than using ClassName.  
+Only use ClassName when you must (ie. when you cannot import the external class).
+</li></ul>
+<div>
+Other options are to use ignoreType, or not use an annotation in this case.
+</div>
+
+
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="optionalAnnotationArguments">Optional Annotation Arguments</a>
+	</div>
+	<div class="section">
+	
+<div>
+The arguments for @parameterTypes, @returnType, @privateMethod and @raises are optional.
+The @abstractMethod and @deprecatedMethod annotations has no arguments.
+</div>
+<div>
+These three forms:
+</div>
+
+<div class="code">
+	@returnType
+	@returnType ( )
+	@returnType ( ' ' )
+</div>
+<div>
+all mean the same thing: this method returns nothing (a value of type <tt>NoneType</tt>).
+</div>
+
+
+	</div>
+	
+	
+
+	
+	
+	<div class="section_label">
+		<a name="issues">Issues</a>
+	</div>
+	<div class="section">
+	
+	
+
+<ul>
+<li>
+These annotations don't yet support "Positional Parameters" (ie. *args) or "Keyword Parameters" (ie. **argkw).
+</li>
+<li>
+I'm not sure of the best way to annotate classes.  One approach would be to annotate a stub <span class="underline">new</span> (class initialization) method.
+</li>
+<li>
+No support yet for duck typing.  This could easily be added by passing a validation function instead of a type or typename.
+</li>
+<li>
+It would be nice to hide the annotations in stack traces.  
+</li>
+<li>
+It would also be nice to hide the implementation details of the annotations, so that all exceptions raised by the annotations appeared to have only a single reference in the stack to the annotations.
+</li>
+</ul>
+
+
+
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="otherPossibleAnnotations">Other Possible Annotations</a>
+	</div>
+	<div class="section">
+
+<ul>
+<li>We could easily modify the @privateMethod annotation to raise an exception on non-local access to a method.  In fact, it could take a list of classes (friends?) that would be permitted access.
+</li>
+<li>@tbGetter and @tbSetter / @tbAccessor.
+</li>
+<li>
+We could alter the type checking syntax to indicate that parameters cannot be 'None'.  This would be more in the realm of assertions than type checking.
+</li>
+<li>
+see <a href="http://wiki.python.org/moin/PythonDecoratorLibrary">Python Decorator Library</a> at python.org.
+</li>
+</ul>
+
+	</div>
+		
+		
+	
+	
+	<div class="section_label">
+		<a name="justification">Justification</a>
+	</div>
+	<div class="section">
+		<div>
+			These annotations have a common theme of bringing keywords and annotations 
+				familiar to Java and C++ users into the Python world.
+		</div>
+		<div>
+			Given that these languages reflect a very different design philosophy from Python, this may seem questionable.
+			That is, are Pyanno annotations <a href="http://en.wikipedia.org/wiki/Python_philosophy">"Pythonic"</a>?			
+		</div>
+		<div>
+			On the one hand, Pyanno annotations would have no value if Python was statically-typed, like Java or C++.  
+			But Pyanno annotations do not make Python a statically-typed language, 
+				(see <a href="http://www.diveintopython.org/getting_to_know_python/declaring_functions.html">this</a>).
+			After all, Pyanno type-checking occurs at run-time, not compile time.
+		</div>
+		<div>
+			It's not a question of statically-type or dynamic-typing, but of access to type-checking at our own discretion.
+			One can apply the annotations as narrowly as you like.  
+			For example, you may only want to annotate the public interface for a library or module. 
+			In this way, Pyanno annotations help offset a potential weakness of the language.
+		</div>
+		<div>
+			In many ways, their real value lies in providing more accurate documentation rather than helping to guarantee correctness.
+		</div>
+
+	</div>
+		
+		
+	
+	
+		<div class="section_label">
+		<a name="faq">FAQ</a>
+	</div>
+	<div class="section">
+	
+		<ul>
+			<li>
+			<b>Question:</b> Why isn't Pyanno version 1.0?  
+			<br>
+			<b>Answer:</b> Pyanno is a fairly new project.  
+			</li>
+		</ul>
+	</div>
+	
+	
+	
+	<div class="section_label">
+		<a name="project_status">Project Status</a>
+	</div>
+	<div class="section">
+
+
+		<div>
+			Version 0.77 released August 28th, 2007.  
+
+			<ul>
+				<li>
+					Added callableType type.
+				</li>
+			</ul>
+		</div>
+
+		<div>
+			Version 0.76 released August 11th, 2007.  
+
+			<ul>
+				<li>
+					Added the @deprecated, @privateMethod and @protectedMethod annotations.
+ 				</li>
+				<li>
+					Added type-checking of the arguments to the @raises annotation.
+ 				</li>
+				<li>
+					Improved the documentation.
+				</li>
+				<li>
+					Elaborated the unit test suite, which is still incomplete.  
+					The unit tests are not part of the source distribution.
+				</li>
+			</ul>
+		</div>
+
+		<div>
+			Version 0.75 released August 8th, 2007.  
+
+			<ul>
+				<li>
+				Initial release.
+ 				</li>
+			</ul>
+		</div>
+
+		
+		<div>
+			To do list &amp; known bugs: 
+			<ul>
+				<li >Add a @deprecated annotation.
+				</li>
+<!--
+				<li class="done"> 
+				</li>
+-->
+			</ul>
+		</div>
+	</div>
+	
+	<div class="section_label">
+		<a name="license">License</a>
+	</div>
+	<div class="section">
+		<div>
+			 This text is available under the <a href="http://www.apache.org/licenses/">ASF (Apache) License</a>.
+		</div>
+		<div>
+			This is a non-viral <a href="http://www.opensource.org/">Open Source</a> license.  
+		</div>
+	</div>
+	
+	
+	<div class="section_label">
+		<a name="requirements">Requirements</a>
+	</div>
+	<div class="section">
+		<ul>
+			<li>
+				Pyanno requires Python 2.4 or higher.
+			</li>
+			<li>
+				Pyanno has no dependencies.  It uses <a href="http://www.riverbankcomputing.co.uk/sip/">sip</a> if available.
+			</li>
+		</ul>
+	</div>
+	
+	<div class="section_label">
+		<a name="references">References</a>
+	</div>
+	<div class="section">
+<div>
+Pyanno annotations are implemented with Python's function decorators feature (new in Python 2.4):
+</div>
+		<ul>
+
+<li>
+<a href="http://www.python.org/dev/peps/pep-0318/">PEP 0318: Decorators for Functions and Methods</a>
+</li>
+<li>
+<a href="http://www.python.org/dev/peps/pep-3107/">PEP 3107: Function Annotations</a>
+</li>
+<li>
+<a href="http://www.python.org/dev/peps/pep-3129/">PEP 3129: Class Decorators</a>
+</li>
+<li>
+see <a href="http://wiki.python.org/moin/PythonDecoratorLibrary">Python Decorator Library</a> at python.org.
+</li>
+<li>
+<a href="http://www.ddj.com/web-development/184406073;jsessionid=4P1CJS3CDFO1YQSNDLRCKH0CJUNN2JVN?_requestid=469603">Python 2.4 Decorators</a> (Article at Dr. Dobb's)
+</li>
+<li>
+<a href=" http://docs.python.org/lib/module-inspect.html">inspect module in Python Library Reference</a> (Pyanno depends heavily on introspection)
+</li>
+ 
+		</ul>
+	</div>
+	
+	<div class="section_label">
+		<a name="keywords">Keywords and Keyphrases</a>
+	</div>
+	<div class="section">
+		<div>
+			In the interest of improving my goolge karma, allow me to mention:
+		</div>
+		<div>
+			python annotations, 
+			annotating python, 
+			python function decorators, 
+			type safe python,
+			strongly typed python,
+			statically typed python,
+			python documentation,
+			python type safety,
+			python type checking,
+			python function decorators,
+			metaprogramming,
+			python introspection,
+			
+		</div>
+	</div>
+	
+	<div>
+		<a href="http://www.fightingquaker.com/">home</a>
+	</div>
+	
+</div>
+
+
+
+</body></html>
+
